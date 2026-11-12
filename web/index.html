@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grounded Web Search Agent</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <span class="icon">🧭</span>
+          <h2>Grounded Agent</h2>
+        </div>
+        <button id="new-chat-btn" class="btn btn-primary btn-sm">+ New Chat</button>
+      </div>
+
+      <div class="sidebar-meta">
+        <div class="meta-item">
+          <span class="meta-label">Timezone:</span>
+          <span id="client-tz" class="meta-val">UTC</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Today:</span>
+          <span id="client-date" class="meta-val">-</span>
+        </div>
+      </div>
+
+      <div class="conversations-section">
+        <div class="section-title">Past Conversations</div>
+        <div id="conversations-list" class="conversations-list">
+          <div class="empty-state">No saved conversations yet.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Container -->
+    <main class="chat-container">
+      <header class="chat-header">
+        <div class="active-conv-info">
+          <span id="conv-title" class="conv-title">New Conversation</span>
+          <span id="model-tag" class="badge">Model: Loading...</span>
+        </div>
+        <div class="header-actions">
+          <span id="system-status" class="status-indicator ready">Ready</span>
+        </div>
+      </header>
+
+      <!-- Message History -->
+      <section id="chat-messages" class="chat-messages">
+        <div class="welcome-banner">
+          <h3>Architecturally Grounded Web Search Agent</h3>
+          <p>
+            Equipped with <strong>exactly one tool</strong> (web search), persistent timestamped memory,
+            and deterministic date resolution in code. Try asking:
+          </p>
+          <div class="prompt-chips">
+            <button class="chip" data-prompt="On Monday we shortlisted 5 CRM tools for a 20-person sales team. Has any of them changed pricing or shipped something big since?">
+              CRM shortlisted on Monday
+            </button>
+            <button class="chip" data-prompt="What did I ask you on 3 November? Is your answer still correct today?">
+              Query from 3 November
+            </button>
+            <button class="chip" data-prompt="Last Tuesday I asked you about Postgres hosting. Has any pricing changed since then?">
+              Postgres hosting changes
+            </button>
+            <button class="chip" data-prompt="What did I ask on 14 October?">
+              Honesty check (missing record)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Input Bar -->
+      <footer class="chat-footer">
+        <form id="chat-form" class="chat-form">
+          <textarea
+            id="user-input"
+            rows="1"
+            placeholder="Ask a question or reference a past discussion..."
+            required
+          ></textarea>
+          <button type="submit" id="send-btn" class="btn btn-send">
+            <span>Send</span>
+          </button>
+        </form>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
