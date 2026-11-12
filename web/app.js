@@ -333,6 +333,7 @@
               statusPill.textContent = `Error: ${event.error}`;
               statusPill.style.borderColor = '#f87171';
               statusPill.style.color = '#f87171';
+              bubble.innerHTML = `<div style="color: #f87171; padding: 6px 0;"><strong>Error:</strong> ${escapeHtml(event.error)}</div>`;
             }
           } catch (e) {
             console.error('Error parsing SSE event:', e);
@@ -342,6 +343,7 @@
     } catch (err) {
       statusPill.textContent = `Error: ${err.message}`;
       statusPill.style.color = '#f87171';
+      bubble.innerHTML = `<div style="color: #f87171; padding: 6px 0;"><strong>Error:</strong> ${escapeHtml(err.message)}</div>`;
     } finally {
       systemStatusEl.className = 'status-indicator ready';
       systemStatusEl.textContent = 'Ready';

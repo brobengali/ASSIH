@@ -288,7 +288,18 @@ export class ChatAgent {
       if (part.type === 'text-delta') {
         fullText += part.textDelta;
         onEvent?.({ type: 'text_delta', delta: part.textDelta });
+      } else if (part.type === 'error') {
+        const rawErr = (part as any).error;
+        const errMsg = rawErr?.message || (typeof rawErr === 'string' ? rawErr : JSON.stringify(rawErr));
+        console.error('[STREAM ERROR]:', errMsg);
+        onEvent?.({ type: 'error', error: errMsg });
+        throw new Error(errMsg);
       }
+    }
+
+    if (!fullText.trim()) {
+      fullText = '*(No text returned by the model provider. Please check if your model key is active or rate-limited.)*';
+      onEvent?.({ type: 'text_delta', delta: fullText });
     }
 
     onEvent?.({ type: 'finish', fullText, sources: accumulatedSources });
